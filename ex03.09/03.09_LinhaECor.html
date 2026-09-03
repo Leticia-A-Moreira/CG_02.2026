@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ex 1 - Reta Bresenham</title>
+    <style>
+      #colorBox {
+          display: inline-block;
+          width: 15px;
+          height: 15px;
+          background-color: blue; /* Inicial azul */
+          border: 1px solid black;
+          vertical-align: text-top;
+      }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <div>
+        <p id="canvasCoordinates">Canvas: (0, 0)</p>
+        <p id="webglCoordinates">WebGL: (0.000, 0.000)</p>
+        <p>Cor Ativa: <span id="colorBox"></span></p>
+        <p><small>Clique duas vezes no quadro para traçar a reta. Mude as cores da linha com as teclas de 0 a 9.</small></p>
+    </div>
+    <script src="03.09_LinhaECor.js"></script>
+</body>
+</html>
