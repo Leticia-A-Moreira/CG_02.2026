@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ex 2 - Retas e Triângulos (Bresenham)</title>
+    <style>
+      #colorBox {
+          display: inline-block;
+          width: 15px;
+          height: 15px;
+          background-color: blue;
+          border: 1px solid black;
+          vertical-align: text-top;
+      }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <div>
+        <p id="canvasCoordinates">Canvas: (0, 0)</p>
+        <p id="webglCoordinates">WebGL: (0.000, 0.000)</p>
+        <p>Cor Ativa: <span id="colorBox"></span> | Modo: <strong id="modoTexto">Reta</strong></p>
+        <p><small><strong>Teclas:</strong> [R] para Retas (2 cliques) | [T] para Triângulos (3 cliques) | [0-9] para Cores</small></p>
+    </div>
+    <script src="03.09_LinhaECorETriangulo_ex2.js"></script>
+</body>
+</html>
