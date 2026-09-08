@@ -5,9 +5,8 @@ if (!gl) {
     throw new Error("WebGL 2 não é suportado.");
 }
 
-// --------------------------------------------------
+
 // VERTICES E CORES
-// --------------------------------------------------
 function verticesBarra(){
     return new Float32Array([
         -0.05,  0.2,
@@ -44,9 +43,8 @@ let corBarraEsquerda = new Float32Array([0.0, 1.0, 0.0]);
 let verticesBolaCentro = verticesBola();
 let corBolaCentro = new Float32Array([1.0, 0.0, 0.0]);
 
-// --------------------------------------------------
+
 // ESTADOS DA ANIMAÇÃO E CONTROLE
-// --------------------------------------------------
 let tyBE = 0.0;
 let tyBD = 0.0;
 let txBola = 0.0;
@@ -58,22 +56,21 @@ let MbarraEsquerda = m3.translation(-0.9, tyBE);
 let MbarraDireita = m3.translation(0.9, tyBD);
 let MbolaCentro = m3.identity();
 
-// Teclas ativas
+// Teclas
 const keys = {};
 window.addEventListener('keydown', (e) => { keys[e.key] = true; });
 window.addEventListener('keyup', (e) => { keys[e.key] = false; });
 
-// --------------------------------------------------
+
+
 // ESTADOS DA ANIMAÇÃO E CONTROLE
-// --------------------------------------------------
 let pontosEsq = 0;
 let pontosDir = 0;
 const placarEsq = document.getElementById("pontosEsquerda");
 const placarDir = document.getElementById("pontosDireita");
 
-// --------------------------------------------------
+
 // CONFIGURAÇÃO DO WEBGL (SHADERS E BUFFERS)
-// --------------------------------------------------
 const verticesBuffer = gl.createBuffer();
 
 const vertexShaderSource = `#version 300 es
@@ -115,9 +112,8 @@ const positionLocation = gl.getAttribLocation(program, "aPosition");
 const colorLocation = gl.getUniformLocation(program, "uColor");
 const transformLocation = gl.getUniformLocation(program, "u_transform");
 
-// --------------------------------------------------
+
 // LOOP PRINCIPAL
-// --------------------------------------------------
 function atualizaAnimacao(){
     // Movimentação Raquete Esquerda (W / S)
     if (keys['w'] || keys['W']) tyBE += 0.02;
@@ -131,7 +127,7 @@ function atualizaAnimacao(){
     if (tyBD > 0.8) tyBD = 0.8;
     if (tyBD < -0.8) tyBD = -0.8;
 
-    // Movimentação da Bola
+    // Movimentação Bolinha
     txBola += txBola_offset;
     tyBola += tyBola_offset;
 
@@ -152,7 +148,7 @@ function atualizaAnimacao(){
         tyBola_offset *= 1.05;
     }
 
-    // Sistema de Pontuação (Reset)
+    // Sistema de Pontuação
     if (txBola > 1.0) {
         pontosEsq++;
         placarEsq.textContent = pontosEsq; 
@@ -181,8 +177,7 @@ const numComponents = 2;
 
 function drawScene(){
     atualizaAnimacao();
-
-    // Troque o 1.0 no final por 0.0 para ficar transparente
+    
     gl.clearColor(0.1, 0.1, 0.1, 0.0);
 
     gl.clear(gl.COLOR_BUFFER_BIT);
