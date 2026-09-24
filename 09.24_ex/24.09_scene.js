@@ -17,11 +17,11 @@ class Scene {
         this.ty = 0.0;
         this.propAngle = 0.0;
 
-        // Angulação 3D inicial (controlada por W, A, S, D)
+        // W, A, S, D
         this.tiltX = 0.3;
         this.tiltY = -0.4;
         
-        // Rotação local (0 = Esquerda, Math.PI = Direita)
+        // Rotação (0 = Esquerda, Math.PI = Direita)
         this.facingRotation = 0.0;
 
         this.keys = {};
@@ -36,20 +36,20 @@ class Scene {
     }
 
     update() {
-        // Movimentação principal e Direção da Cabine
+        // Movimentação principal e Direção da frente helicoptero
         if (this.keys['ArrowUp']) this.ty += 0.015;
         if (this.keys['ArrowDown']) this.ty -= 0.015;
         
         if (this.keys['ArrowLeft']) {
             this.tx -= 0.015;
-            this.facingRotation = 0.0; // Frente natural aponta para a esquerda
+            this.facingRotation = 0.0; 
         }
         if (this.keys['ArrowRight']) {
             this.tx += 0.015;
-            this.facingRotation = Math.PI; // Gira 180° no próprio eixo, frente aponta para a direita
+            this.facingRotation = Math.PI;
         }
 
-        // Controle da angulação da câmera (Inclinando o modelo)
+        // Controle da angulação (Inclinando)
         if (this.keys['w']) this.tiltX -= 0.02;
         if (this.keys['s']) this.tiltX += 0.02;
         if (this.keys['a']) this.tiltY -= 0.02;
@@ -59,17 +59,15 @@ class Scene {
 
         // ----------------------------------------------------
         // ORDEM CORRETA DE MATRIZES EM WEBGL
-        // A última operação do código é a primeira aplicada ao modelo.
         // ----------------------------------------------------
         
-        // 1. Gira a cabine para o lado certo (Esquerda/Direita)
+        // Gira a frente
         let globalMatrix = m4.yRotation(this.facingRotation);
-        
-        // 2. Aplica a inclinação 3D para enxergar o topo/lateral
+    
         globalMatrix = m4.xRotate(globalMatrix, this.tiltX);
         globalMatrix = m4.yRotate(globalMatrix, this.tiltY);
         
-        // 3. Move o helicóptero pelo cenário usando a posição calculada
+        // Mover helicóptero 
         globalMatrix = m4.translate(globalMatrix, this.tx, this.ty, 0.0);
 
         this.helicopterBody.update(globalMatrix);
